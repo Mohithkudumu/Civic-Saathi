@@ -1,7 +1,11 @@
 import { Tabs } from 'expo-router';
-import { Chrome as Home, Ticket, CircleHelp as HelpCircle, User } from 'lucide-react-native';
+import { Chrome as Home, Ticket, CircleHelp as HelpCircle, User, Plus } from 'lucide-react-native';
+import { TouchableOpacity, View, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
 
 export default function TabLayout() {
+  const router = useRouter();
+
   return (
     <Tabs
       screenOptions={{
@@ -9,54 +13,85 @@ export default function TabLayout() {
         tabBarActiveTintColor: '#007AFF',
         tabBarInactiveTintColor: '#8E8E93',
         tabBarStyle: {
-          backgroundColor: 'white',
-          borderTopWidth: 1,
-          borderTopColor: '#E5E5EA',
-          paddingBottom: 8,
-          paddingTop: 8,
-          height: 88,
+          height: 60,
+          paddingBottom: 10,
         },
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '500',
-        },
-      }}>
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ size, color }) => (
-            <Home size={size} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Home size={24} color={color} />,
         }}
       />
       <Tabs.Screen
         name="tickets"
         options={{
           title: 'My Tickets',
-          tabBarIcon: ({ size, color }) => (
-            <Ticket size={size} color={color} />
+          tabBarIcon: ({ color }) => <Ticket size={24} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="create-placeholder"
+        options={{
+          title: '',
+          tabBarButton: () => (
+            <TouchableOpacity
+              style={styles.plusButton}
+              onPress={() => router.push('/create-ticket')}
+            >
+              <View style={styles.plusButtonInner}>
+                <Plus size={24} color="white" />
+              </View>
+            </TouchableOpacity>
           ),
+        }}
+        listeners={{
+          tabPress: (e) => {
+            // Prevent default action
+            e.preventDefault();
+          },
         }}
       />
       <Tabs.Screen
         name="support"
         options={{
           title: 'Support',
-          tabBarIcon: ({ size, color }) => (
-            <HelpCircle size={size} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <HelpCircle size={24} color={color} />,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ size, color }) => (
-            <User size={size} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <User size={24} color={color} />,
         }}
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  plusButton: {
+    top: -20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  plusButtonInner: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: '#007AFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+});

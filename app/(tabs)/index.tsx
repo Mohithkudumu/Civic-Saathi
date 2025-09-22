@@ -165,10 +165,12 @@ export default function HomeScreen() {
 
       <View style={styles.bottomSpacing} />
 
-      {/* Floating Action Button */}
+      {/* Remove the FAB component below */}
+      {/* 
       <TouchableOpacity style={styles.fab}>
         <Plus size={24} color="white" />
       </TouchableOpacity>
+      */}
     </ScrollView>
   );
 }
@@ -425,6 +427,7 @@ const styles = StyleSheet.create({
   bottomSpacing: {
     height: 100,
   },
+  /*
   fab: {
     position: 'absolute',
     bottom: 100,
@@ -441,4 +444,5 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 8,
   },
+  */
 });
